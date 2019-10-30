@@ -48,7 +48,7 @@ namespace DatingApp.Controllers
 
                 var userFromRepo = await _repo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
             if (userFromRepo == null)
-                return Unauthorized();
+                return Ok("username or password does not exist");
 
             var claims = new[]
             {
