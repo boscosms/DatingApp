@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {BsDropdownModule} from 'ngx-bootstrap';
+import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { from } from 'rxjs';
@@ -13,6 +14,12 @@ import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import {ToastrModule} from 'ngx-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { MemberListComponent } from './member-list/member-list.component';
+import { ListsComponent } from './lists/lists.component';
+import { MessagesComponent } from './messages/messages.component';
+import { appRoutes } from './routes';
+import { AuthGuard } from './_guards/auth.guard';
+
 
 
 
@@ -22,7 +29,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
       AppComponent,
       NavComponent,
       HomeComponent,
-      RegisterComponent
+      RegisterComponent,
+      MemberListComponent,
+      ListsComponent,
+      MessagesComponent
    ],
    imports: [
       BrowserModule,
@@ -31,14 +41,17 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
       FormsModule,
       BsDropdownModule.forRoot(),
       ToastrModule.forRoot({
-         timeOut: 10000,
          preventDuplicates: false,
+         timeOut: 10000,
          positionClass: 'toast-bottom-right'
-      })
+      }),
+      RouterModule.forRoot(appRoutes)
+
    ],
    providers: [
       AuthService,
-      ErrorInterceptorProvider
+      ErrorInterceptorProvider,
+      AuthGuard
    ],
    bootstrap: [
       AppComponent
